@@ -4,16 +4,6 @@ A lightweight, hackable, and developer-friendly static blog generator powered by
 
 Turn your plain text, Markdown, or RDoc files into a clean, searchable, and fast static blog.
 
-## Features
-
-*   **Zero Dependencies**: Uses standard RDoc (with a tiny monkey patch) to generate your site.
-*   **Plain Text Posts**: Write in `.rdoc`, `.md`, or `.txt`.
-*   **Developer Friendly**: It's just Ruby. Hack it, patch it, extend it.
-*   **Fast & Clean**: Generates static HTML. No database, no complex build pipeline.
-*   **Built-in Search**: Full-text search for your blog posts (excluding classes/methods).
-*   **Themable**: Supports standard RDoc themes (Darkfish, Aliki).
-*   **One-Command Install**: Get started in seconds.
-
 ## Quick Start
 
 ### Installation
@@ -23,7 +13,6 @@ You can install the RDoc Blog Generator using our standalone installer. Run this
 ```bash
 curl -L https://github.com/metacritical/rdoc_blog/releases/latest/download/install.rb | ruby
 ```
-
 
 The installer is interactive and will ask you where to create your new blog.
 
@@ -38,6 +27,16 @@ The installer is interactive and will ask you where to create your new blog.
     ```bash
     bin/rdoc-blog
     ```
+
+## Features
+
+*   **Zero Dependencies**: Uses standard RDoc (with a tiny monkey patch) to generate your site.
+*   **Plain Text Posts**: Write in `.rdoc`, `.md`, or `.txt`.
+*   **Developer Friendly**: It's just Ruby. Hack it, patch it, extend it.
+*   **Fast & Clean**: Generates static HTML. No database, no complex build pipeline.
+*   **Built-in Search**: Full-text search for your blog posts (excluding classes/methods).
+*   **Themable**: Supports standard RDoc themes (Darkfish, Aliki).
+*   **One-Command Install**: Get started in seconds.
 
 ## Usage
 
