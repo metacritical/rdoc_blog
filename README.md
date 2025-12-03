@@ -23,7 +23,7 @@ You can install the RDoc Blog Generator using our standalone installer. Run this
 ```bash
 curl -L https://github.com/metacritical/rdoc_blog/releases/latest/download/install.rb | ruby
 ```
-*(Note: Replace the URL with the actual release URL once published)*
+
 
 The installer is interactive and will ask you where to create your new blog.
 
