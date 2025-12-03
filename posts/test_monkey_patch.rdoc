@@ -1,0 +1,8 @@
+Title: "Monkey Patch Test"
+
+This is a test post to verify the RDoc monkey patch.
+
+== It Works!
+
+If you can see this, the monkey patch is working correctly.
+This file is a `.rb` file but contains no Ruby code!

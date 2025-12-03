@@ -1,0 +1,95 @@
+Title: "Deep Dive: RDoc as a Blog Generator"
+
+Author:: Pankaj Doharey
+Date:: 2024-01-20
+Tags:: rdoc, ruby, static-site-generator
+
+== Introduction
+
+After the initial proof of concept, let's explore RDoc's capabilities
+more deeply. Can we actually make this work for a real blog?
+
+== RDoc Features That Could Work
+
+=== 1. Rich Text Formatting
+
+RDoc supports:
+
+* *Bold* and _italic_ text
+* Headers (==, ===, etc.)
+* Lists (both numbered and bulleted)
+* Code blocks with syntax highlighting
+* Links and cross-references
+
+=== 2. Metadata
+
+We can use RDoc's metadata format:
+
+  Author:: Your Name
+  Date:: 2024-01-20
+  Tags:: ruby, blog, rdoc
+
+=== 3. Code Examples
+
+Since we're writing Ruby files, we can include actual executable
+code examples:
+
+  class BlogGenerator
+    def initialize(posts_dir)
+      @posts_dir = posts_dir
+    end
+
+    def generate
+      RDoc::RDoc.new.document([@posts_dir])
+    end
+  end
+
+== Challenges
+
+=== Template Customization
+
+RDoc uses ERB templates for HTML generation. To make it look like
+a blog, you'd need to:
+
+* Modify the class page template
+* Create custom CSS
+* Add navigation and archive pages
+* Implement tag/category pages
+
+This is non-trivial and requires deep knowledge of RDoc internals.
+
+=== Post Organization
+
+RDoc organizes by classes/modules. For a blog, you'd want:
+
+* Chronological ordering
+* Tag-based filtering
+* Category pages
+* Archive by date
+
+You'd need to write custom Ruby code to generate these pages.
+
+=== RSS Feed
+
+Blogs typically need RSS feeds. RDoc doesn't generate these.
+You'd need to parse the RDoc output or source files to generate
+an RSS feed separately.
+
+== Alternative Approach
+
+Instead of fighting RDoc, you could:
+
+1. Write posts in RDoc format (for familiarity)
+2. Parse them with a custom script
+3. Generate blog HTML with a proper template engine
+4. Use RDoc only for code syntax highlighting
+
+== Conclusion
+
+While RDoc generates static HTML, it's not the right tool for
+blogging. However, the experiment reveals interesting possibilities
+for documentation-heavy blogs or technical writing where code
+examples are central.
+
+For a production blog, stick with Jekyll, Middleman, or similar
+tools designed for this purpose.

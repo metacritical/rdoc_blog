@@ -1,0 +1,21 @@
+= RDoc Blog - Proof of Concept
+
+This is a proof of concept demonstrating how RDoc could be used
+as a static blog generator.
+
+== How It Works
+
+Blog posts are written as Ruby files with RDoc-formatted comments.
+RDoc then generates static HTML documentation from these files.
+
+== Posts
+
+Each post is a Ruby file in the blog_posts/ directory. The actual
+content is in RDoc comments, not in executable code.
+
+== Generating the Blog
+
+Run:
+  ruby generate_blog.rb
+
+This will generate HTML files in the blog_output/ directory.

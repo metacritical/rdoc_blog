@@ -1,0 +1,74 @@
+#!/usr/bin/env ruby
+require 'base64'
+require 'fileutils'
+
+# Files to bundle
+FILES = [
+  'bin/rdoc-blog',
+  'lib/rdoc_blog/monkey_patch.rb',
+  'config.yml',
+  'posts/README.rdoc',
+  'README.md'
+]
+
+OUTPUT_FILE = 'install.rb'
+
+File.open(OUTPUT_FILE, 'w') do |f|
+  f.puts "#!/usr/bin/env ruby"
+  f.puts "# RDoc Blog Installer"
+  f.puts "# Generated on #{Time.now}"
+  f.puts
+  f.puts "require 'fileutils'"
+  f.puts "require 'base64'"
+  f.puts
+  f.puts "def create_file(path, content_base64)"
+  f.puts "  dir = File.dirname(path)"
+  f.puts "  FileUtils.mkdir_p(dir) unless dir == '.'"
+  f.puts "  File.open(path, 'w') do |file|"
+  f.puts "    file.write(Base64.decode64(content_base64))"
+  f.puts "  end"
+  f.puts "  puts \"Created \#{path}\""
+  f.puts "end"
+  f.puts
+  f.puts "puts 'Welcome to the RDoc Blog Installer!'"
+  f.puts "print 'Where do you want to install the blog? [rdoc-blog]: '"
+  f.puts "begin"
+  f.puts "  input = File.open('/dev/tty') { |f| f.gets }"
+  f.puts "rescue Errno::ENXIO, Errno::ENOENT"
+  f.puts "  input = gets"
+  f.puts "end"
+  f.puts "target_dir = input&.chomp"
+  f.puts "target_dir = 'rdoc-blog' if target_dir.nil? || target_dir.empty?"
+  f.puts
+  f.puts "if File.exist?(target_dir)"
+  f.puts "  puts \"Directory '\#{target_dir}' already exists. Aborting.\""
+  f.puts "  exit 1"
+  f.puts "end"
+  f.puts
+  f.puts "puts \"Creating directory '\#{target_dir}'...\""
+  f.puts "FileUtils.mkdir_p(target_dir)"
+  f.puts "Dir.chdir(target_dir)"
+  f.puts
+  f.puts "puts 'Installing RDoc Blog...'"
+  f.puts
+
+  FILES.each do |file_path|
+    if File.exist?(file_path)
+      content = File.read(file_path)
+      encoded = Base64.strict_encode64(content)
+      f.puts "create_file('#{file_path}', '#{encoded}')"
+    else
+      puts "Warning: #{file_path} not found, skipping."
+    end
+  end
+
+  f.puts
+  f.puts "FileUtils.chmod('+x', 'bin/rdoc-blog')"
+  f.puts "puts 'Making bin/rdoc-blog executable...'"
+  f.puts
+  f.puts "puts 'Installation complete!'"
+  f.puts "puts 'Run ./bin/rdoc-blog to generate your blog.'"
+end
+
+puts "Installer generated at #{OUTPUT_FILE}"
+FileUtils.chmod('+x', OUTPUT_FILE)

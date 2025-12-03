@@ -1,0 +1,60 @@
+Title: "Hello World"
+
+Author:: Pankaj Doharey
+Date:: 2024-01-15
+Tags:: introduction, meta
+
+== Overview
+
+This is a proof of concept demonstrating how RDoc could be used
+as a static blog generator. Instead of writing markdown or HTML,
+we write blog posts as Ruby files with RDoc comments!
+
+== The Idea
+
+RDoc is designed to generate documentation from Ruby source code.
+But what if we treat blog posts as "documentation" for a conceptual
+blog module? Each blog post becomes a Ruby file with:
+
+* A title (class/module name)
+* Metadata (author, date, tags)
+* Content (RDoc-formatted comments)
+
+== How It Works
+
+1. Write blog posts as Ruby files with RDoc comments
+2. Run RDoc to generate HTML documentation
+3. Customize RDoc templates to make it look like a blog
+4. Deploy the generated HTML
+
+== Pros
+
+* RDoc is already installed with Ruby (no extra dependencies)
+* Generates static HTML (perfect for GitHub Pages)
+* Supports rich formatting (headings, lists, code blocks, links)
+* Can include actual Ruby code examples that are syntax highlighted
+* Familiar syntax for Ruby developers
+
+== Cons
+
+* Not designed for this purpose (hacky)
+* Limited blog-specific features (no RSS, tags, categories)
+* Template customization is complex
+* No built-in pagination or archive pages
+* Writing in RDoc format is less intuitive than Markdown
+
+== Example Code
+
+Here's some Ruby code that could be part of your blog post:
+
+  def generate_blog
+    RDoc::RDoc.new.document(['blog_posts/'])
+  end
+
+== Conclusion
+
+While RDoc *can* technically generate static HTML from text,
+it's not ideal for blogging. Tools like Jekyll, Middleman, or
+even plain Markdown + a simple script would be better suited.
+
+But hey, it's a fun experiment! 🚀

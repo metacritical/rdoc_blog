@@ -1,0 +1,5 @@
+# RDoc Blog Configuration
+title: "My RDoc Blog"
+theme: "darkfish"
+posts_dir: "posts"
+output_dir: "public"

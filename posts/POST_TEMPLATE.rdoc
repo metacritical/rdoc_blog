@@ -1,0 +1,35 @@
+Title: "Your Post Title Here"
+
+Author:: Your Name
+Date:: YYYY-MM-DD
+Tags:: tag1, tag2, tag3
+
+== Introduction
+
+Your blog post content starts here. Use RDoc formatting:
+
+* *Bold* text with asterisks
+* _Italic_ text with underscores
+* Headers with ==, ===, ====
+
+== Main Content
+
+Write your blog post content using RDoc markup. You can include:
+
+=== Code Examples
+
+  def example_code
+    puts "This will be syntax highlighted!"
+  end
+
+=== Lists
+
+1. Numbered lists
+2. Work like this
+
+* Bullet lists
+* Also work
+
+== Conclusion
+
+Wrap up your thoughts here.

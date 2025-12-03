@@ -1,0 +1,89 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'rdoc'
+require 'fileutils'
+require_relative '../lib/rdoc_blog/monkey_patch'
+
+# Default configuration
+options = {
+  theme: 'darkfish',
+  posts_dir: 'posts',
+  output_dir: 'public',
+  title: 'RDoc Blog'
+}
+
+# Load config.yml if it exists
+config_file = 'config.yml'
+if File.exist?(config_file)
+  require 'yaml'
+  config = YAML.load_file(config_file)
+  # Symbolize keys
+  config = config.transform_keys(&:to_sym)
+  options.merge!(config)
+end
+
+# Parse command line arguments
+OptionParser.new do |opts|
+  opts.banner = "Usage: rdoc-blog [options]"
+
+  opts.on("-t", "--theme NAME", "RDoc theme to use (default: darkfish)") do |t|
+    options[:theme] = t
+  end
+
+  opts.on("-p", "--posts DIR", "Directory containing blog posts (default: posts)") do |p|
+    options[:posts_dir] = p
+  end
+
+  opts.on("-o", "--output DIR", "Output directory (default: public)") do |o|
+    options[:output_dir] = o
+  end
+
+  opts.on("--title TITLE", "Blog title (default: RDoc Blog)") do |t|
+    options[:title] = t
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!
+
+# Apply the monkey patch
+RDocBlog::MonkeyPatch.apply
+
+puts "📝 Generating blog..."
+puts "   Posts:  #{options[:posts_dir]}"
+puts "   Output: #{options[:output_dir]}"
+puts "   Theme:  #{options[:theme]}"
+
+# Ensure output directory exists
+FileUtils.mkdir_p(options[:output_dir])
+
+# Gather files
+# Look for .rdoc, .rb, .md, .txt
+files = Dir[File.join(options[:posts_dir], '*.{rdoc,rb,md,txt}')].reject { |f| f.include?('TEMPLATE') }
+
+if files.empty?
+  puts "⚠️  No posts found in #{options[:posts_dir]}!"
+  exit 1
+end
+
+# Build RDoc arguments
+args = [
+  '--op', options[:output_dir],
+  '--title', options[:title],
+  '--format', options[:theme],
+  '--main', 'index.html', # Try to set a main page if possible, though RDoc usually picks one
+  '--force-output'
+] + files
+
+# Run RDoc
+begin
+  r = RDoc::RDoc.new
+  r.document(args)
+  puts "✅ Blog generated successfully at #{File.join(options[:output_dir], 'index.html')}"
+rescue => e
+  puts "❌ Error generating blog: #{e.message}"
+  puts e.backtrace
+  exit 1
+end
