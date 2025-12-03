@@ -16,18 +16,6 @@ curl -L https://github.com/metacritical/rdoc_blog/releases/latest/download/insta
 
 The installer is interactive and will ask you where to create your new blog.
 
-### Manual Installation
-
-1.  Clone this repository:
-    ```bash
-    git clone git@github.com:metacritical/rdoc_blog.git
-    cd rdoc_blog
-    ```
-2.  Run the generator:
-    ```bash
-    bin/rdoc-blog
-    ```
-
 ## Features
 
 *   **Zero Dependencies**: Uses standard RDoc (with a tiny monkey patch) to generate your site.
